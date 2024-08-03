@@ -181,7 +181,9 @@ class VideoChannelFragment : DJIFragment(), View.OnClickListener, SurfaceHolder.
 
         val oldFuture = futureRef.getAndSet(
             scheduler.scheduleAtFixedRate({
-                channelVM.videoChannelInfo.value?.bitRate = (8 * totalVideoBytes.getAndSet(0).toDouble() / 1000000)
+                var bitRate = (8 * totalVideoBytes.getAndSet(0).toDouble() / 1000000)
+                    println("${channelVM.videoChannelInfo.value?.streamSource?.physicalDeviceType} Total Video Bit Rate : $bitRate")
+                channelVM.videoChannelInfo.value?.bitRate = bitRate
                 channelVM.refreshVideoChannelInfo()
             }, 0, 1, TimeUnit.SECONDS)
         );
